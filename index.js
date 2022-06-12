@@ -19,8 +19,9 @@ app.use((req, res, next) => {
 
 app.use('/user', user);
 
-app.get('*', (req, res) => {
-	res.redirect('/home');
+app.use((err, req, res, next) => {
+	console.error(err);
+	return res.status(400).send({ error: err });
 });
 
 app.listen(process.env.PORT || 8080, () => {
